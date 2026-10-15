@@ -1,0 +1,168 @@
+---
+title: "RExercise#5_Porras"
+author: "Uan A. Porras"
+date: "2026-10-15"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+```{r}
+##Part A
+# TODO: Create a 3x3 matrix called m1 containing the numbers 1 to 9,
+# using matrix(1:9, nrow = 3, ncol = 3)
+# Print m1
+m1 <- matrix(1:9, nrow = 3, ncol = 3)
+print(m1)
+# TODO: Create a second 3x3 matrix called m2 with the SAME numbers 1:9,
+# but this time add the argument byrow = TRUE
+# Print m2 and compare it to m1
+m2 <- matrix(1:9, nrow = 3, ncol = 3, byrow = TRUE)
+print(m2)
+scores <- matrix(c(88, 92, 79, 95, 84, 90), nrow = 2, ncol = 3, byrow = TRUE)
+rownames(scores) <- c("Quiz1", "Quiz2")
+colnames(scores) <- c("Ana", "Ben", "Cid")
+
+# TODO: Print scores and confirm the row/column names were applied
+print(scores)
+
+#Question 1
+#byrow = TRUE tells R to fill the matrix horizontally, from left to right across each row. Without it, R fills the matrix vertically, from top to bottom down each column. Both matrices contain the same numbers, but their arrangements are different.
+#Question 2
+
+m3 <- matrix(1:8, nrow = 3, ncol = 3)
+print(m3)
+
+##Part B
+# Using scores from Part A:
+
+# TODO: Access the single value in row 1, column 2 using scores[1, 2]
+scores[1, 2]
+# TODO: Access the entire first row using scores[1, ]
+scores[1, ]
+# TODO: Access the entire "Ben" column using scores[, "Ben"]
+scores[, "Ben"]
+
+# TODO: Return only the values in scores that are greater than or equal
+# to 90 (hint: scores[scores >= 90] -- note the result loses its shape)
+scores[scores >= 90]
+
+#Question 3
+class(scores[1, ])
+class(scores[, "Ben"])
+#R automatically simplifies a single row or column to a numeric vector because the result contains only one dimension of values. This is called dropping dimensions. To preserve the matrix structure, use drop = FALSE, as in scores[1, , drop = FALSE].
+
+#Question 4
+Using scores[scores >= 90] in R picks out the values that satisfy the condition and gives them back as a simple one‑dimensional vector. The original layout of rows and columns disappears because this step pulls out matching entries of taking a whole rectangular block of the matrix. As a result the row names and column names are not kept as matrix dimnames.
+
+##Part C
+# TODO: Use dim(), nrow(), and ncol() on scores to report its dimensions
+dim(scores)
+nrow(scores)
+ncol(scores)
+# TODO: Use t() to transpose scores and store it as scores_t
+# Print scores_t and compare its dimensions to scores using dim()
+scores_t <- t(scores)
+print(scores_t)
+dim(scores_t)
+
+a <- matrix(1:4, nrow = 2)
+b <- matrix(5:8, nrow = 2)
+
+# TODO: Add a and b element-wise (a + b)
+a + b
+# TODO: Multiply a and b element-wise (a * b)
+a * b
+# TODO: Perform true matrix multiplication of a and b using %*%
+# Compare this result to a * b above -- they should be different
+a %*% b
+
+#Question 5
+#The * operator carries out element‑wise multiplication. It takes each element of one matrix. Multiplies it, by the element that sits in the same position of the other matrix. The %*% operator performs matrix multiplication. It multiplies each row of the matrix by each column of the second matrix and then adds all the products together. As a result the two operators produce outcomes.
+#Question 6
+#I have noticed that when a matrix is transposed the rows of the matrix become columns of the matrix and the columns of the matrix become rows of the matrix. The row names of the matrix and the column names of the matrix must also switch positions so that each name stays linked to the data. For example the student names of the matrix become row names of the matrix while the quiz names of the matrix become column names of the matrix.
+
+##Part D
+# TODO: A new student "Dex" scored 85 on Quiz1 and 91 on Quiz2.
+# Use cbind() to add a new column to scores called Dex with
+# these two values. Store the result as scores_v2 and print it.
+scores_v2 <- cbind(scores, Dex = c(85, 91))
+print(scores_v2)
+# TODO: A new quiz "Quiz3" was given with scores 80, 88, 93 for
+# Ana, Ben, Cid (use only the original 3 students, not Dex).
+# Use rbind() to add this as a new row to scores. Store as scores_v3
+# and print it.
+scores_v3 <- rbind(scores, Quiz3 = c(80, 88, 93))
+print(scores_v3)
+
+#Question 7
+cbind(scores, c(85, 91, 100))
+#R might show a warning because the new vector has three values while the matrix only has two rows. R repeats values to fit the needed size. The new column might not show the scores that were meant. The right way is to use two values when adding a column to this matrix.
+#Cbind() adds columns. The number of rows should be the same. Likewise rbind() adds rows. The number of columns should be the same. R can sometimes repeat values of stopping with an error but this can cause results that were not expected.
+#Question 8
+#I would use rbind() when I am adding observations to a dataset as time goes on. For instance if I was keeping track of sales and I needed to include the sales data from another day I would add a new row using rbind(). I would use cbind() if I needed to add a variable like the sales target, for every day.
+
+##Part E
+# TODO: Create a 2x3x2 array called arr using:
+# array(1:12, dim = c(2, 3, 2))
+# Print arr and observe how it displays as two separate 2x3 "slices"
+arr <- array(1:12, dim = c(2, 3, 2))
+print(arr)
+# TODO: Access the element in row 1, column 2, of the SECOND layer
+# (slice) of arr, e.g. arr[1, 2, 2]
+arr[1, 2, 2]
+# TODO: Access the entire first layer (slice) of arr using arr[ , , 1]
+arr[, , 1]
+# TODO: Use dim() on arr to confirm its dimensions
+dim(arr)
+
+#Question 9
+#The output 2 3 2 means the array has 2 rows, 3 columns and 2 layers. The first number stands for the rows. The second number stands for the columns. The third number stands for the number of layers.
+#Question 10
+#A 3D array can hold students exam scores for subjects over several semesters. In this 3D array rows stand for students columns stand for subjects and layers stand for semesters. A single 2D matrix cannot easily keep scores for semesters, in separate layers but a 3D array keeps all data in one place.
+
+##Part F
+class_a <- matrix(c(85, 90, 78, 92), nrow = 2, byrow = TRUE,
+                   dimnames = list(c("S1", "S2"), c("Midterm", "Final")))
+class_b <- matrix(c(88, 84, 95, 91), nrow = 2, byrow = TRUE,
+                   dimnames = list(c("S3", "S4"), c("Midterm", "Final")))
+
+# TODO: Combine class_a and class_b into one matrix called all_students
+# using the correct bind function (think about whether these represent
+# new STUDENTS or new SCORE COLUMNS before choosing cbind or rbind)
+all_students <- rbind(class_a, class_b)
+print(all_students)
+# TODO: From all_students, compute each student's average score across
+# Midterm and Final. Hint: rowMeans(all_students) does this in one line.
+rowMeans(all_students)
+
+#Question 11
+#I chose rbind() because class_b has students, not new score columns. Both matrices already have the columns, Midterm and Final so their rows can be put together into one matrix. The same column names show that rbind() is the choice.
+#Question 12
+#I would use rbind() to combine the five class matrices. Each class has students but all of them have the same two columns: Midterm and Final. After putting them all I would use dim() to check how many rows and columns there are. If each class had two students then the total should be 10 students and 2 score columns. So the expected dimensions would be 10 2. That means 10 rows and 2 columns. It’s a way to stack the data and see the full picture.
+
+## Conclusion
+#A matrix is a two- data structure that uses rows and columns. An array can have three or more dimensions, which means it can organize data into layers. This makes arrays good for storing data like student scores across multiple subjects and semesters. The cbind() function adds columns to a dataset. The rbind() function adds rows. These functions help in updating data, such, as adding student scores or recording sales for extra days. They are very useful when working with datasets that need to grow over time.
+```
