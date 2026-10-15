@@ -1,0 +1,209 @@
+---
+title: "RExercise#3_Porras"
+author: "Uan A. Porras"
+date: "2026-10-01"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+
+
+
+
+```{r}
+## Part A
+# TODO: Create a numeric vector called scores containing: 88, 92, 79, 95, 84
+# Then create a character vector called subjects containing:
+# "Math", "Science", "English", "History", "PE"
+scores <- c(88, 92, 79, 95, 84)
+subjects <- c("Math", "Science", "English", "History", "PE")
+
+# TODO: Use seq() to create a vector called odds containing odd numbers
+# from 1 to 19 (hint: use the "by" argument)
+odds <- seq(1, 19, by = 2)
+# TODO: Use seq() with length.out to create a vector of exactly 5 evenly
+# spaced numbers between 0 and 1
+evenly_spaced <- seq(0, 1, length.out = 5)
+
+# TODO: Use rep() to create a vector that repeats the value "A" 4 times
+letters_a <- rep("A", times = 4)
+# TODO: Use rep() with the "each" argument to turn c("A", "B") into
+# "A" "A" "B" "B" (each element repeated twice, in order)
+each_letters <- rep(c("A", "B"), each = 2)
+# TODO: Use rep() with the "times" argument to turn c("A", "B") into
+# "A" "B" "A" "B" (the whole sequence repeated twice)
+times_letters <- rep(c("A", "B"), times = 2)
+
+#Question 1:
+  age <- c(15, 28, 32, 36, 27, 18, 52, 39, 42, 29, 35, 31,
+        27, 22, 37, 34, 19, 20, 57, 49, 50, 37, 46, 25,
+        17, 12, 42, 53, 41, 51, 35, 24, 33, 8)
+
+length(age)
+1 / age
+new_age <- c(age, 0, age)
+min(age)
+max(age)
+
+##Question 2
+#The `each` argument repeats each letter before moving to the next one, while `times` repeats the whole set of letters again.
+##Question 3
+#seq(1, 20, by = 2) generates numbers from 1 to 20 in steps of 2. seq(1, 20, length.out = 5) generates exactly 5 evenly spaced numbers between 1 and 20. I would use by for a fixed interval and length.out when I need a specific number of values.
+##Question 4
+vec_num <- seq(20, 60)
+mean(vec_num)
+sum(vec_num)
+length(vec_num)
+
+```
+
+```{r}
+##Part B
+grades <- c(88, 92, 79, 95, 84)
+names(grades) <- c("Math", "Science", "English", "History", "PE")
+
+# TODO: Access the 3rd element of grades using positional indexing
+grades[3]
+# TODO: Access the 1st abd 4th element of grades using positional indexing
+grades[c(1, 4)]
+# TODO: Access "Science" and "PE" together using their names
+grades[c("Science", "PE")]
+
+# TODO: Return all elements of grades EXCEPT the 1st and 4th, using
+# negative indexing, e.g. grades[-c(...)]
+grades[-c(1, 4)]
+
+# TODO: Use a logical condition to return only the grades that are
+# greater than or equal to 85 (hint: grades[grades >= 85])
+grades[grades >= 85]
+
+##Question 5
+#Negative indexing is useful when removing unwanted columns or entries from a dataset. Logical indexing is better when selecting students whose grades are at least 85.
+
+##Question 6
+#Running grades[10] returns NA because the vector has only five elements. R returns a missing value instead of an error because an out-of-range index is allowed.
+
+##Question 7
+Filter(function(i) { all(i %% c(3, 5, 7) != 0) }, seq(100))
+```
+
+```{r}
+##Part C
+x <- c(1, 2, 3, 4)
+y <- c(10, 20, 30, 40)
+
+# TODO: Add x and y element-wise, and print the result
+x + y
+# TODO: Multiply every element of x by 2
+x * 2
+
+z <- c(1, 2, 3, 4, 5, 6)
+short <- c(1, 0)
+
+# TODO: Add z and short together and print the result. Run this even
+# though the vectors are different lengths -- observe what R does.
+z + short
+
+fruits <- c("apple", "banana", "cherry")
+
+# TODO: Use append() to add "date" to the end of fruits
+append(fruits, "date")
+# TODO: Use append() with the "after" argument to insert "kiwi" between
+# "apple" and "banana" (i.e., after position 1)
+append(fruits, "kiwi", after = 1)
+
+##Question 8
+#R recycles the shorter vector by repeating its values until it matches the length of the longer vector. In this case, c(1, 0) becomes 1, 0, 1, 0, 1, 0 for the addition.
+##Question 9
+#Adding z to c(1, 0, 1) works without a warning because the length of 6 is divisible by 3. Adding z to c(1, 0, 1, 1) produces a warning because 6 is not divisible by 4, so the recycling is incomplete.
+```
+
+```{r}
+##Part D
+# TODO: Create a list called student with these named elements:
+# name = "Maria Santos", age = 20, grades = c(88, 92, 79),
+# is_enrolled = TRUE 
+student <- list(
+  name = "Maria Santos",
+  age = 20,
+  grades = c(88, 92, 79),
+  is_enrolled = TRUE
+)
+# TODO: Access the "grades" element of student using single brackets
+# student["grades"] -- then check its type with class()
+student["grades"]
+class(student["grades"])
+
+# TODO: Access the "grades" element of student using double brackets
+# student[["grades"]] -- then check its type with class()
+student[["grades"]]
+class(student[["grades"]])
+
+# TODO: Access the "name" element of student using the $ operator
+# student$name
+student$name
+
+# TODO: From student, extract just the SECOND grade in the grades vector
+# in a single expression, e.g. student[["grades"]][2] or student$grades[2]
+student$name
+student[["grades"]][2]
+
+##Question 10
+#Single brackets [ ] return a list containing the selected element, while double brackets [[ ]] return the element itself. Therefore, student["grades"] has the class "list", while student[["grades"]] has the class "numeric".
+##Question 11
+#R distinguishes between [ ] and [[ ]] because lists can contain different types of objects, including vectors and other lists. Single brackets preserve the list structure, while double brackets extract one element directly.
+```
+
+```{r}
+##Part E
+inventory <- list(
+  item = c("Notebook", "Pen", "Eraser"),
+  price = c(25.50, 10.00, 5.00),
+  in_stock = c(TRUE, TRUE, FALSE)
+)
+
+# TODO: Using what you learned in Parts B and D, print only the items
+# (from inventory$item) that are currently in stock (in_stock == TRUE)
+inventory$item[inventory$in_stock]
+
+# TODO: A new product "Ruler" priced at 15.00 and in stock (TRUE) needs
+# to be added to inventory. Use append() to add "Ruler" to
+# inventory$item, 15.00 to inventory$price, and TRUE to inventory$in_stock.
+# (You will need three separate append() calls, one per vector.)
+inventory$item <- append(inventory$item, "Ruler")
+inventory$price <- append(inventory$price, 15.00)
+inventory$in_stock <- append(inventory$in_stock, TRUE)
+
+##Question 12
+#First, inventory$in_stock retrieves the logical vector showing which products are available. Next, inventory$item[inventory$in_stock] uses that logical vector to select the corresponding item names. Because the item names and stock values follow the same order, only "Notebook" and "Pen" are returned.
+#Question 13
+#Using separate vectors can cause errors if one vector is reordered or updated without changing the others. Grouping related vectors in a list keeps the data organized, while a data frame is even more suitable when each product needs its own row with matching item names, prices, and stock status.
+```
+
+```{r}
+##Conclusion
+#Vectors store elements of the same basic type, while lists can store different types of data together. Vectors are useful for calculations and operations on similar values. Lists are useful for organizing related information with different data types. I would use a vector for a collection of grades and a list or data frame for student records or product inventories.
+```
